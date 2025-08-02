@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Application Status Check</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f6f8;
+      text-align: center;
+      padding-top: 50px;
+    }
+    .container {
+      background: white;
+      padding: 30px;
+      max-width: 400px;
+      margin: auto;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    input[type="text"] {
+      width: 100%;
+      padding: 12px;
+      margin: 12px 0;
+      box-sizing: border-box;
+    }
+    button {
+      background-color: #007BFF;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+      border-radius: 4px;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    .status {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>Check Your Application Status</h2>
+    <form id="statusForm">
+      <input type="text" id="applicationId" placeholder="Enter Application ID or Email" required>
+      <button type="submit">Check Status</button>
+    </form>
+    <div class="status" id="statusResult"></div>
+  </div>
+
+  <script>
+    document.getElementById("statusForm").addEventListener("submit", function(event){
+      event.preventDefault();
+      const appId = document.getElementById("applicationId").value.trim();
+
+      // Dummy example: Replace this logic with real backend integration
+      let statusMessage;
+      if (appId === "12345") {
+        statusMessage = "✅ Application Approved";
+      } else if (appId === "67890") {
+        statusMessage = "🕒 Application Under Review";
+      } else {
+        statusMessage = "❌ Application ID not found";
+      }
+
+      document.getElementById("statusResult").innerText = statusMessage;
+    });
+  </script>
+
+</body>
+</html>
