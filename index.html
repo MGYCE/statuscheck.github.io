@@ -1,27 +1,85 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Customer Status Check</title>
+  <meta charset="UTF-8">
+  <title>Customer Status Checker</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
+    /* Base styles */
     body {
-      font-family: Arial, sans-serif;
-      padding: 20px;
+      background: #f3f6fb;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
     }
-    #status {
+
+    .container {
+      background: white;
+      padding: 30px 40px;
+      border-radius: 10px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      max-width: 400px;
+      width: 100%;
+      text-align: center;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 12px 15px;
+      margin-top: 10px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #007bff;
+      color: white;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    .status {
       margin-top: 20px;
-      font-weight: bold;
+      font-size: 16px;
+      font-weight: 500;
+      color: #444;
+    }
+
+    .status.success {
+      color: green;
+    }
+
+    .status.error {
+      color: red;
     }
   </style>
 </head>
 <body>
-  <h2>Check Customer Status</h2>
 
-  <label for="customerId">Enter Customer ID:</label><br>
-  <input type="text" id="customerId" placeholder="e.g. CUST12345"><br><br>
-
-  <button onclick="checkStatus()">Get Status</button>
-
-  <div id="status"></div>
+  <div class="container">
+    <h2>Customer Status Check</h2>
+    <input type="text" id="customerId" placeholder="Enter Customer ID">
+    <button onclick="checkStatus()">Get Status</button>
+    <div id="status" class="status"></div>
+  </div>
 
   <script>
     function checkStatus() {
@@ -29,20 +87,30 @@
       const statusDiv = document.getElementById("status");
 
       if (customerId === "") {
-        statusDiv.innerText = "Please enter a Customer ID.";
+        statusDiv.textContent = "Please enter a Customer ID.";
+        statusDiv.className = "status error";
         return;
       }
 
-      // Mock status check - you can replace this with a real API call
-      const mockStatuses = {
-        "123": "BOC Scholarship Application Submitted (Jayanta Shib)",
-        "456": "Inactive",
-        "789": "Pending Verification"
+      // Mocked status data
+      const mockData = {
+        "25801": "BOC Scholarship Application Submitted",
+        "CUST002": "Inactive",
+        "CUST003": "Pending",
+        "CUST004": "Suspended"
       };
 
-      const status = mockStatuses[customerId.toUpperCase()] || "Customer ID not found.";
-      statusDiv.innerText = `Status for ${customerId}: ${status}`;
+      const status = mockData[customerId.toUpperCase()];
+
+      if (status) {
+        statusDiv.textContent = `Status for ${customerId.toUpperCase()}: ${status}`;
+        statusDiv.className = "status success";
+      } else {
+        statusDiv.textContent = "Customer ID not found.";
+        statusDiv.className = "status error";
+      }
     }
   </script>
+
 </body>
 </html>
